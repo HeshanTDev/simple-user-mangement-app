@@ -22,13 +22,16 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "user_type_id", nullable = false)
-    private Type userType;
+    private UserType userType;
 
     @ManyToOne
     @JoinColumn(name = "user_status_id", nullable = false)
-    private Type userStatus;
+    private UserStatus userStatus;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
