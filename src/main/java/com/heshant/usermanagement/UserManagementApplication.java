@@ -10,8 +10,7 @@ public class UserManagementApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(UserManagementApplication.class, args);
-        UserType heshan = new UserType(1L, "Heshan");
-        System.out.println(heshan);
+
 
     }
 
