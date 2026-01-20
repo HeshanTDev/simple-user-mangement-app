@@ -1,4 +1,13 @@
 package com.heshant.usermanagement.dto.response;
 
-public record UserResponseDTO() {
-}
+import java.time.LocalDateTime;
+
+public record UserResponseDTO(
+        Long id,
+        String name,
+        String email,
+        String userType,
+        String userStatus,
+        String Department,
+        LocalDateTime createdAt
+) {}

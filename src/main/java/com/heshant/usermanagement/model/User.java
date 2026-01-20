@@ -22,6 +22,9 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false,length = 10)
+    private int mobile;
+
     @Column(nullable = false)
     private String password;
 
@@ -32,6 +35,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_status_id", nullable = false)
     private UserStatus userStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "user_department_id", nullable = false)
+    private Department department;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

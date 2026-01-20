@@ -1,3 +1,6 @@
 package com.heshant.usermanagement.dto.response;
 
-public record UserStatusResponseDTO() {}
+public record UserStatusResponseDTO(
+        Long id,
+        String name
+) {}

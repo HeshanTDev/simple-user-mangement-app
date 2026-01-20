@@ -1,6 +1,7 @@
 package com.heshant.usermanagement.dto.response;
 
-public record UserTypeResponseDTO(
+
+public record DepartmentResponseDTO(
         Long id,
         String name
 ) {}

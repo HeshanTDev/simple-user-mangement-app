@@ -1,8 +1,10 @@
 package com.heshant.usermanagement.controller;
 
+import com.heshant.usermanagement.dto.request.UserCreateRequestDTO;
 import com.heshant.usermanagement.dto.response.UserResponseDTO;
 import com.heshant.usermanagement.model.User;
 import com.heshant.usermanagement.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +24,18 @@ public class UserController {
 
     @GetMapping("users")
     public ResponseEntity<List<UserResponseDTO>> getUsers() {
-       return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("user/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable int id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
+
+    @PostMapping("user/{id}")
+    public ResponseEntity<User> addUser(@Valid @PathVariable UserCreateRequestDTO user) {
+        return null;
+    }
+
 
 }
