@@ -25,20 +25,27 @@ public class UserService {
 
         List<UserResponseDTO> usersResponse = new ArrayList<>();
 
-//        for (User user : users) {
-//            usersResponse.add(new UserResponseDTO(
-//
-//            ));
-//        }
+        for (User user : users) {
+            UserResponseDTO responseUser = new UserResponseDTO(
+                    user.getId(),
+                    user.getName(),
+                    user.getEmail(),
+                    user.getUserType().getName(),
+                    user.getUserStatus().getName(),
+                    user.getDepartment().getName(),
+                    user.getCreatedAt()
+            );
+            usersResponse.add(responseUser);
+        }
 
-        return new ArrayList<UserResponseDTO>();
+        return usersResponse;
     }
 
     public UserResponseDTO findById(int id) {
         return null;
     }
 
-    public UserResponseDTO addUser(UserCreateRequestDTO userRequest){
+    public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
         return null;
     }
 }

@@ -15,7 +15,6 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("user-management")
 public class UserController {
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -36,6 +35,4 @@ public class UserController {
     public ResponseEntity<User> addUser(@Valid @PathVariable UserCreateRequestDTO user) {
         return null;
     }
-
-
 }
