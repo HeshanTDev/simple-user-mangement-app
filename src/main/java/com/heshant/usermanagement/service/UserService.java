@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -35,14 +36,25 @@ public class UserService {
                     user.getDepartment().getName(),
                     user.getCreatedAt()
             );
+
             usersResponse.add(responseUser);
         }
 
         return usersResponse;
     }
 
-    public UserResponseDTO findById(int id) {
-        return null;
+    public UserResponseDTO findById(long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+
+        return new UserResponseDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getUserType().getName(),
+                user.getUserStatus().getName(),
+                user.getDepartment().getName(),
+                user.getCreatedAt()
+        );
     }
 
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
