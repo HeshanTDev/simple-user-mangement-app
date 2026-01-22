@@ -60,4 +60,8 @@ public class UserService {
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
         return null;
     }
+
+    public UserResponseDTO updateUser(long id,UserCreateRequestDTO userRequest) {
+        return null;
+    }
 }
