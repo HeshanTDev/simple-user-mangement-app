@@ -2,8 +2,15 @@ package com.heshant.usermanagement.service;
 
 import com.heshant.usermanagement.dto.request.UserCreateRequestDTO;
 import com.heshant.usermanagement.dto.response.UserResponseDTO;
+import com.heshant.usermanagement.model.Department;
 import com.heshant.usermanagement.model.User;
+import com.heshant.usermanagement.model.UserStatus;
+import com.heshant.usermanagement.model.UserType;
+import com.heshant.usermanagement.repo.DepartmentRepository;
 import com.heshant.usermanagement.repo.UserRepository;
+import com.heshant.usermanagement.repo.UserStatusRepository;
+import com.heshant.usermanagement.repo.UserTypeRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,12 +20,22 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserTypeRepository userTypeRepository;
+    private final UserStatusRepository userStatusRepository;
+    private final DepartmentRepository departmentRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(
+            UserRepository userRepository,
+            UserTypeRepository userTypeRepository,
+            UserStatusRepository userStatusRepository,
+            DepartmentRepository departmentRepository
+    ) {
         this.userRepository = userRepository;
+        this.userTypeRepository = userTypeRepository;
+        this.userStatusRepository = userStatusRepository;
+        this.departmentRepository = departmentRepository;
     }
-
 
     public List<UserResponseDTO> findAll() {
 
@@ -31,10 +48,12 @@ public class UserService {
                     user.getId(),
                     user.getName(),
                     user.getEmail(),
+                    user.getMobile(),
                     user.getUserType().getName(),
                     user.getUserStatus().getName(),
                     user.getDepartment().getName(),
-                    user.getCreatedAt()
+                    user.getCreatedAt(),
+                    user.getUpdatedAt()
             );
 
             usersResponse.add(responseUser);
@@ -50,18 +69,52 @@ public class UserService {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
+                user.getMobile(),
                 user.getUserType().getName(),
                 user.getUserStatus().getName(),
                 user.getDepartment().getName(),
-                user.getCreatedAt()
+                user.getCreatedAt(),
+                user.getUpdatedAt()
         );
     }
 
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
-        return null;
+
+
+        Department department = departmentRepository.findById(userRequest.getDepartmentId()).orElseThrow(() -> new RuntimeException("Department not found!"));
+        UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
+        UserType userType = userTypeRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+
+        User user = User.create(
+                userRequest.getName(),
+                userRequest.getEmail(),
+                userRequest.getMobile(),
+                userRequest.getPassword(),
+                userType,
+                userStatus,
+                department
+        );
+
+        User savedUser = userRepository.save(user);
+
+        return new UserResponseDTO(
+                savedUser.getId(),
+                savedUser.getName(),
+                savedUser.getEmail(),
+                savedUser.getMobile(),
+                savedUser.getUserType().getName(),
+                savedUser.getUserStatus().getName(),
+                savedUser.getDepartment().getName(),
+                savedUser.getCreatedAt(),
+                savedUser.getUpdatedAt()
+        );
     }
 
-    public UserResponseDTO updateUser(long id,UserCreateRequestDTO userRequest) {
-        return null;
+    public void deleteUser(long id) {
+        User found = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (found != null) {
+            userRepository.deleteById(id);
+        }
     }
 }

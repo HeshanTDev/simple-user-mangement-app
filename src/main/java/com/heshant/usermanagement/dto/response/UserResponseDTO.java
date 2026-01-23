@@ -6,8 +6,10 @@ public record UserResponseDTO(
         Long id,
         String name,
         String email,
+        String mobile,
         String userType,
         String userStatus,
         String Department,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {}

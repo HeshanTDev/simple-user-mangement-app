@@ -19,11 +19,11 @@ public class User {
     @Column(nullable = false, unique = false, length = 100)
     private String name;
 
-    @Column(nullable = false,unique = true,length = 100)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(nullable = false,length = 10)
-    private int mobile;
+    @Column(nullable = false, length = 10)
+    private String mobile;
 
     @Column(nullable = false)
     private String password;
@@ -54,5 +54,27 @@ public class User {
     @PreUpdate
     public void onUpate() {
         updatedAt = LocalDateTime.now();
+    }
+
+//Factory method to create user object
+    public static User create(
+            String name,
+            String email,
+            String mobile,
+            String password,
+            UserType userType,
+            UserStatus userStatus,
+            Department department
+    ) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setMobile(mobile);
+        user.setPassword(password);
+        user.setUserType(userType);
+        user.setUserStatus(userStatus);
+        user.setDepartment(department);
+
+        return user;
     }
 }
