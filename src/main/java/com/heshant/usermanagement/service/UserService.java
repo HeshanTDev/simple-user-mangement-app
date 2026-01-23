@@ -49,9 +49,9 @@ public class UserService {
                     user.getName(),
                     user.getEmail(),
                     user.getMobile(),
-                    user.getUserType().getName(),
-                    user.getUserStatus().getName(),
-                    user.getDepartment().getName(),
+                    user.getUserType(),
+                    user.getUserStatus(),
+                    user.getDepartment(),
                     user.getCreatedAt(),
                     user.getUpdatedAt()
             );
@@ -70,9 +70,9 @@ public class UserService {
                 user.getName(),
                 user.getEmail(),
                 user.getMobile(),
-                user.getUserType().getName(),
-                user.getUserStatus().getName(),
-                user.getDepartment().getName(),
+                user.getUserType(),
+                user.getUserStatus(),
+                user.getDepartment(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );
@@ -81,9 +81,9 @@ public class UserService {
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
 
 
-        Department department = departmentRepository.findById(userRequest.getDepartmentId()).orElseThrow(() -> new RuntimeException("Department not found!"));
-        UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
         UserType userType = userTypeRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+        UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
+        Department department = departmentRepository.findById(userRequest.getDepartmentId()).orElseThrow(() -> new RuntimeException("Department not found!"));
 
         User user = User.create(
                 userRequest.getName(),
@@ -102,19 +102,58 @@ public class UserService {
                 savedUser.getName(),
                 savedUser.getEmail(),
                 savedUser.getMobile(),
-                savedUser.getUserType().getName(),
-                savedUser.getUserStatus().getName(),
-                savedUser.getDepartment().getName(),
+                savedUser.getUserType(),
+                savedUser.getUserStatus(),
+                savedUser.getDepartment(),
                 savedUser.getCreatedAt(),
                 savedUser.getUpdatedAt()
         );
     }
 
+    public UserResponseDTO updateUser(long id, UserCreateRequestDTO userRequest) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+
+        UserType userType = userTypeRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+        if (userType != null) {
+            user.setUserType(userType);
+        }
+
+        UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
+        if (userStatus != null) {
+            user.setUserStatus(userStatus);
+        }
+
+        Department department = departmentRepository.findById(userRequest.getDepartmentId()).orElseThrow(() -> new RuntimeException("Department not found!"));
+        if (department != null) {
+            user.setDepartment(department);
+        }
+
+
+        user.setName(userRequest.getName());
+        user.setPassword(userRequest.getPassword());
+        user.setMobile(userRequest.getMobile());
+
+        User updateUser = userRepository.save(user);
+
+        return new UserResponseDTO(
+                updateUser.getId(),
+                updateUser.getName(),
+                updateUser.getEmail(),
+                updateUser.getMobile(),
+                updateUser.getUserType(),
+                updateUser.getUserStatus(),
+                updateUser.getDepartment(),
+                updateUser.getCreatedAt(),
+                updateUser.getUpdatedAt()
+        );
+    }
+
     public void deleteUser(long id) {
-        User found = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User found = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
 
         if (found != null) {
             userRepository.deleteById(id);
         }
     }
+
 }
