@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
-@RepositoryRestResource(path = "departments")
+@RepositoryRestResource(path = "user-management/departments")
 public interface DepartmentRepository extends JpaRepository<Department,Long> {
 }
