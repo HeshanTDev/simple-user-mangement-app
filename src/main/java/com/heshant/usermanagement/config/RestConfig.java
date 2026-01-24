@@ -1,4 +1,3 @@
-//package com.heshan.crud_app_2.config;
 package com.heshant.usermanagement.config;
 
 import com.heshant.usermanagement.model.Department;
