@@ -79,7 +79,7 @@ public class UserService {
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
 
 
-        UserRole userRole = userRoleRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+        UserRole userRole = userRoleRepository.findById(userRequest.getUserRoleId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
         UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
         Department department = departmentRepository.findById(userRequest.getDepartmentId()).orElseThrow(() -> new RuntimeException("Department not found!"));
 
@@ -111,7 +111,7 @@ public class UserService {
     public UserResponseDTO updateUser(long id, UserCreateRequestDTO userRequest) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
 
-        UserRole userRole = userRoleRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+        UserRole userRole = userRoleRepository.findById(userRequest.getUserRoleId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
         if (userRole != null) {
             user.setUserRole(userRole);
         }

@@ -32,7 +32,7 @@ public class UserCreateRequestDTO {
     private String password;
 
     @NotNull(message = "User type must be selected")
-    private Long userTypeId;
+    private Long userRoleId;
 
     @NotNull(message = "User Status must be selected")
     private Long userStatusId;
