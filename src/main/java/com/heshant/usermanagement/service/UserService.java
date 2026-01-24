@@ -5,34 +5,32 @@ import com.heshant.usermanagement.dto.response.UserResponseDTO;
 import com.heshant.usermanagement.model.Department;
 import com.heshant.usermanagement.model.User;
 import com.heshant.usermanagement.model.UserStatus;
-import com.heshant.usermanagement.model.UserType;
+import com.heshant.usermanagement.model.UserRole;
 import com.heshant.usermanagement.repo.DepartmentRepository;
 import com.heshant.usermanagement.repo.UserRepository;
 import com.heshant.usermanagement.repo.UserStatusRepository;
-import com.heshant.usermanagement.repo.UserTypeRepository;
-import jakarta.validation.Valid;
+import com.heshant.usermanagement.repo.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserTypeRepository userTypeRepository;
+    private final UserRoleRepository userRoleRepository;
     private final UserStatusRepository userStatusRepository;
     private final DepartmentRepository departmentRepository;
 
     public UserService(
             UserRepository userRepository,
-            UserTypeRepository userTypeRepository,
+            UserRoleRepository userRoleRepository,
             UserStatusRepository userStatusRepository,
             DepartmentRepository departmentRepository
     ) {
         this.userRepository = userRepository;
-        this.userTypeRepository = userTypeRepository;
+        this.userRoleRepository = userRoleRepository;
         this.userStatusRepository = userStatusRepository;
         this.departmentRepository = departmentRepository;
     }
@@ -49,7 +47,7 @@ public class UserService {
                     user.getName(),
                     user.getEmail(),
                     user.getMobile(),
-                    user.getUserType(),
+                    user.getUserRole(),
                     user.getUserStatus(),
                     user.getDepartment(),
                     user.getCreatedAt(),
@@ -70,7 +68,7 @@ public class UserService {
                 user.getName(),
                 user.getEmail(),
                 user.getMobile(),
-                user.getUserType(),
+                user.getUserRole(),
                 user.getUserStatus(),
                 user.getDepartment(),
                 user.getCreatedAt(),
@@ -81,7 +79,7 @@ public class UserService {
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
 
 
-        UserType userType = userTypeRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+        UserRole userRole = userRoleRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
         UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
         Department department = departmentRepository.findById(userRequest.getDepartmentId()).orElseThrow(() -> new RuntimeException("Department not found!"));
 
@@ -90,7 +88,7 @@ public class UserService {
                 userRequest.getEmail(),
                 userRequest.getMobile(),
                 userRequest.getPassword(),
-                userType,
+                userRole,
                 userStatus,
                 department
         );
@@ -102,7 +100,7 @@ public class UserService {
                 savedUser.getName(),
                 savedUser.getEmail(),
                 savedUser.getMobile(),
-                savedUser.getUserType(),
+                savedUser.getUserRole(),
                 savedUser.getUserStatus(),
                 savedUser.getDepartment(),
                 savedUser.getCreatedAt(),
@@ -113,9 +111,9 @@ public class UserService {
     public UserResponseDTO updateUser(long id, UserCreateRequestDTO userRequest) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
 
-        UserType userType = userTypeRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
-        if (userType != null) {
-            user.setUserType(userType);
+        UserRole userRole = userRoleRepository.findById(userRequest.getUserTypeId()).orElseThrow(() -> new RuntimeException("User Type not found!"));
+        if (userRole != null) {
+            user.setUserRole(userRole);
         }
 
         UserStatus userStatus = userStatusRepository.findById(userRequest.getUserStatusId()).orElseThrow(() -> new RuntimeException("User Status not found!"));
@@ -140,7 +138,7 @@ public class UserService {
                 updateUser.getName(),
                 updateUser.getEmail(),
                 updateUser.getMobile(),
-                updateUser.getUserType(),
+                updateUser.getUserRole(),
                 updateUser.getUserStatus(),
                 updateUser.getDepartment(),
                 updateUser.getCreatedAt(),

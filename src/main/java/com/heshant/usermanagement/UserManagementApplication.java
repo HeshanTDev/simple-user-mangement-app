@@ -1,6 +1,5 @@
 package com.heshant.usermanagement;
 
-import com.heshant.usermanagement.model.UserType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

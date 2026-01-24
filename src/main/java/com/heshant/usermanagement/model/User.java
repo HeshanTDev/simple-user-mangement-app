@@ -30,7 +30,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_type_id", nullable = false)
-    private UserType userType;
+    private UserRole userRole;
 
     @ManyToOne
     @JoinColumn(name = "user_status_id", nullable = false)
@@ -62,7 +62,7 @@ public class User {
             String email,
             String mobile,
             String password,
-            UserType userType,
+            UserRole userRole,
             UserStatus userStatus,
             Department department
     ) {
@@ -71,7 +71,7 @@ public class User {
         user.setEmail(email);
         user.setMobile(mobile);
         user.setPassword(password);
-        user.setUserType(userType);
+        user.setUserRole(userRole);
         user.setUserStatus(userStatus);
         user.setDepartment(department);
 

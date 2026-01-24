@@ -1,12 +1,11 @@
 package com.heshant.usermanagement.repo;
 
-import com.heshant.usermanagement.model.UserType;
+import com.heshant.usermanagement.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
-@RepositoryRestResource(path = "user_types")
-public interface UserTypeRepository extends JpaRepository<UserType,Long> {
+@RepositoryRestResource(path = "user_roles")
+public interface UserRoleRepository extends JpaRepository<UserRole,Long> {
 }
