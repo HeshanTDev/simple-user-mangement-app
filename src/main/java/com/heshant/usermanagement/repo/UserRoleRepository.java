@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
-@RepositoryRestResource(path = "user-management/user-roles")
+@RepositoryRestResource(path = "user-roles")
 public interface UserRoleRepository extends JpaRepository<UserRole,Long> {
 }
