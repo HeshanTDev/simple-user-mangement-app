@@ -11,6 +11,7 @@ public record UserResponseDTO(
         String name,
         String email,
         String mobile,
+        String password,
         UserRole userRole,
         UserStatus userStatus,
         Department department,
