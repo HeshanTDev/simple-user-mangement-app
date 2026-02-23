@@ -1,4 +1,4 @@
-package com.heshant.usermanagement.service.impl;
+package com.heshant.usermanagement.service;
 
 import com.heshant.usermanagement.dto.request.UserCreateRequestDTO;
 import com.heshant.usermanagement.dto.response.UserResponseDTO;
@@ -11,14 +11,13 @@ import com.heshant.usermanagement.repo.DepartmentRepository;
 import com.heshant.usermanagement.repo.UserRepository;
 import com.heshant.usermanagement.repo.UserStatusRepository;
 import com.heshant.usermanagement.repo.UserRoleRepository;
-import com.heshant.usermanagement.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl{
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
@@ -37,7 +36,6 @@ public class UserServiceImpl implements UserService {
         this.departmentRepository = departmentRepository;
     }
 
-    @Override
     public List<UserResponseDTO> findAll() {
 
         List<User> users = userRepository.findAll();
@@ -64,7 +62,6 @@ public class UserServiceImpl implements UserService {
         return usersResponse;
     }
 
-    @Override
     public UserResponseDTO findById(long id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
 
@@ -82,7 +79,6 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    @Override
     public UserResponseDTO addUser(UserCreateRequestDTO userRequest) {
 
 
@@ -116,7 +112,6 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    @Override
     public UserResponseDTO updateUser(long id, UserCreateRequestDTO userRequest) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
 
@@ -156,7 +151,6 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    @Override
     public void deleteUser(long id) {
         User found = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
 

@@ -3,7 +3,7 @@ package com.heshant.usermanagement.controller;
 import com.heshant.usermanagement.dto.request.UserCreateRequestDTO;
 import com.heshant.usermanagement.dto.response.UserResponseDTO;
 import com.heshant.usermanagement.exception.UserNotFoundException;
-import com.heshant.usermanagement.service.impl.UserServiceImpl;
+import com.heshant.usermanagement.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
