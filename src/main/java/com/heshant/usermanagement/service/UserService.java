@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl{
+public class UserService {
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final UserStatusRepository userStatusRepository;
     private final DepartmentRepository departmentRepository;
 
-    public UserServiceImpl(
+    public UserService(
             UserRepository userRepository,
             UserRoleRepository userRoleRepository,
             UserStatusRepository userStatusRepository,
